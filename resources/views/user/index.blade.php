@@ -123,6 +123,7 @@ $(function () {
          nic_no : $('#formModal input[name=nic_no]').val(),
          contact_no : $('#formModal input[name=contact_no]').val(),
          password : $('#formModal input[name=password]').val(),
+         // password_confirm : $('#formModal input[name=password_confirmation]').val(),
          // role : ('select[name="role[]"]').val(),
         }
         $.ajax({
@@ -187,6 +188,7 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
          nic_no : $('#editformModal input[name=nic_no]').val(),
          contact_no : $('#editformModal input[name=contact_no]').val(),
          password : $('#editformModal input[name=password]').val(),
+         // password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
          // role : ('select[name="role[]"]').val(),
         }
         $.ajax({

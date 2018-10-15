@@ -52,6 +52,11 @@
                 <div class="form-line">
                   <input type="password"  class="form-control" placeholder="" name="password"></div>
                 </div>
+                <div class="form-group">
+                  <label>Confirm Password</label>
+                <div class="form-line">
+                  <input type="password"  class="form-control" placeholder="" name="password_confirmation"></div>
+                </div>
 
           {!! Form::close()!!}
    <!--            </form> -->
