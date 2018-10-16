@@ -17,6 +17,8 @@
         base_url = "{{ url('/') }}"
         token = "{{ csrf_token() }}"
     </script>
+
+    
     
 </head>
 <body>

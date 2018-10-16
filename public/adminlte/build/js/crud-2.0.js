@@ -155,7 +155,6 @@ function setModal(data) {
     $('input[name="'+index+'"]').val(val);
     $('textarea[name="'+index+'"]').val(val);
     $('select[name="'+index+'"]').selectpicker('val', val);
-
     $('#formModal').modal('show');
   });
 }

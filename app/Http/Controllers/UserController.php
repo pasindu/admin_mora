@@ -35,12 +35,13 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // dd($request->all());
-        $validator = $this->validateData($request->all());
-            if ($validator->fails()) {
-              return Response::json($validator->errors(), 401);
-            }
 
-        // $this->validate($request, $this->getRules());
+        $validator = $this->validateData($request->all());
+          if ($validator->fails()){
+          return Response::json($validator->errors(), 422);
+          }
+
+
         $user = User::create([
 
                 'name' => $request->name,
@@ -51,12 +52,8 @@ class UserController extends Controller
                 'contact_no' => $request->contact_no,
                                 
         ]);
-
         return response()->json(['msg' => 'User added successfully'], 200);
 
-        // $input = request()->all();
-        // dd($input);
-        // return response()->json(['success'=>'Got Simple Ajax Request.']);
     }
 
     /**
@@ -101,10 +98,17 @@ class UserController extends Controller
      */
     public function update(Request $request,User $user)
     {
-        // dd($request->all());
-        // if (!($this->checkCurrentUserPwd($request->admin_password))) {
-        //     return Response::json(['error' => 'Current User password did not match'], 401);
-        //  }
+
+      // dd($request->all());
+        $validator = $this->validateData($request->all(),$request->id);
+            if ($validator->fails()) {
+              return Response::json($validator->errors(), 422);
+            }
+
+            if (!($this->checkCurrentUserPwd($request->admin_password))) {
+              return Response::json(['error' => 'Current User password did not match'], 422);
+            }
+
         $user = User::find($request->id);
         $user->update([
                 'name' => $request->name,
@@ -177,7 +181,7 @@ class UserController extends Controller
         }
     }
 
-    public function validateData($data,$id = 0)
+    public function validateData($data, $id = 0)
     {
     $rules = [
           
@@ -191,6 +195,7 @@ class UserController extends Controller
             // 'role' => 'required|array',
             // 'role.*' => 'required|exists:roles,id',
         ];
+
 
     $msg = [
      
@@ -212,12 +217,14 @@ class UserController extends Controller
   }
 
     public function checkCurrentUserPwd($password)
+      {
+        $admin =  Auth::user();
+        
+        if(Hash::check($password, $admin->password))
         {
-            $admin =  Auth::user();
-            if(Hash::check($password, $admin->password))
-            {
-                 return true;
-            }
-                return false;
+          return true;
         }
+        return false;
+  }
+
 }

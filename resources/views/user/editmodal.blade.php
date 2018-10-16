@@ -14,60 +14,60 @@
             <!-- text input -->
             {!! Form::open(['id' => 'formUpdate'])!!}
             {{ csrf_field()}}
-{{--                 <div class="form-group">
-                  <label>Select Role</label>
+              {{--                 <div class="form-group">
+                <label>Select Role</label>
                 <div class="form-line">
                   <select class="form-control" name="role">
                     @foreach($user as $element)
                     <option value="{{$element->id}}" {{ $users->role == $element->id ? 'selected' : '' }}>{{$element->title}}</option>
                     @endforeach
                   </select>
-                </div>
-              </div> --}}
-            <div class="form-group">
-              <label>Name</label>
-              <div class="form-line">
-                <input type="text" class="form-control" placeholder="" name="name">
-              </div></div>
-              <div class="form-group">
-                <label>NIC No.</label>
-                <div class="form-line">
-                  <input type="text" class="form-control" placeholder="" name="nic_no"></div>
-                </div>
-                <div class="form-group">
-                  <label>Contact No</label>
-                  <div class="form-line">
-                    <input type="text" class="form-control" placeholder="" name="contact_no"></div>
-                  </div>
+                   </div>
+                  </div> --}}
                   <div class="form-group">
-                    <label>Email</label>
+                    <label>Name</label>
                     <div class="form-line">
-                      <input type="text" class="form-control" placeholder="" name="email"></div>
-                    </div>
+                      <input type="text" class="form-control" placeholder="" name="name">
+                    </div></div>
                     <div class="form-group">
-                      <label>Password</label>
+                      <label>NIC No.</label>
                       <div class="form-line">
-                        <input type="password"  class="form-control" placeholder="" name="password"></div>
+                        <input type="text" class="form-control" placeholder="" name="nic_no"></div>
                       </div>
-                                      <div class="form-group">
-                        <label>Confirm Password</label>
+                      <div class="form-group">
+                        <label>Contact No</label>
                         <div class="form-line">
-                          <input type="password"  class="form-control" placeholder="" name="password_confirmation"></div>
+                          <input type="text" class="form-control" placeholder="" name="contact_no"></div>
                         </div>
-                        {{--                 <div class="form-group">
+                        <div class="form-group">
+                          <label>Email</label>
+                          <div class="form-line">
+                            <input type="text" class="form-control" placeholder="" name="email"></div>
+                          </div>
+                          <div class="form-group">
+                            <label>Password</label>
+                            <div class="form-line">
+                            <input type="password"  class="form-control" placeholder="" name="password"></div>
+                        </div>
+                         <div class="form-group">
+                         <label>Confirm Password</label>
+                         <div class="form-line">
+                          <input type="password"  class="form-control" placeholder="" name="password_confirmation"></div>
+                         </div>
+                          <div class="form-group">
                           <label>Admin Current Password</label>
                           <div class="form-line">
                             <input type="password"  class="form-control" placeholder="" name="admin_password"></div>
-                          </div> --}}
+                          </div>
                           <input type="hidden" class="form-control" placeholder="" name="id">
-                          
+                        
                           {!! Form::close()!!}
-                          <!--            </form> -->
+
                         </div>
                         <!-- /.box-body -->
                       </div>
-                    </div>
-                    <div class="modal-footer">
+                     </div>
+                     <div class="modal-footer">
                       <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
                       <button type="button" class="btn btn-primary" id="editbtnSubmit">Submit</button>
                     </div>

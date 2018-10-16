@@ -9,7 +9,7 @@
     <!-- Content Wrapper. Contains page content -->
     <h2>USER MANAGEMENT
     <span class="pull-right">
-      <button type="button" class="btn btn-default" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
+      <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
     </span></h2>
     <small>All the users in the system</small>
   </div>
@@ -108,6 +108,9 @@ $(function () {
           $('#editformModal input[name="email"]').val(data.email);
           $('#editformModal input[name="nic_no"]').val(data.nic);
           $('#editformModal input[name="contact_no"]').val(data.contact_no);
+          $('#editformModal input[name="password"]').val(data.password);
+          $('#editformModal input[name="password_confirmation"]').val(data.password_confirmation);
+          $('#editformModal input[name="admin_password"]').val(data.admin_password);
           $("#editformModal").modal('show');
     }
 </script>
@@ -126,15 +129,43 @@ $(function () {
          // password_confirm : $('#formModal input[name=password_confirmation]').val(),
          // role : ('select[name="role[]"]').val(),
         }
+
+      //         $.ajax({
+      //           method:'POST',
+      //           url:"user/create",
+      //           data:formData,
+      //           beforeSend: function () {
+                 
+      //           },
+      //           complete: function () {
+                  
+      //           },
+      //           success: function (data) {
+      //     // successHandler(); // This need to be handled externally
+      //   },
+      //   error: function(data){
+
+      //        console.log(data);
+      //     if(data.status == 422){
+      //       errorHandler(data.responseJSON)
+      //     }
+      //   }
+      // });
+
         $.ajax({
            type:'POST',
            url:"user/create",
-           data:formData,
-           success:function(data){
-              loadDatatable(data.msg)
-           }
-
-        });
+           data:$('#formCreate').serialize(),
+         })
+        .done(function(data) {
+          toastr["success"](data.msg);
+          loadDatatable(data.msg)
+        })
+        .fail(function(data) {
+          if(data.status == 422){
+            errorHandler(data.responseJSON)
+          }
+        })
   });
 
 
@@ -149,15 +180,15 @@ $('.js-basic-example').on('click', '.btn-danger', function(event) {
       $.ajax({
         url: url,
         type: "DELETE",
-        // headers: {'X-CSRF-TOKEN':token},
         dataType:'JSON',
         sync: true
       })
         .done(function(data) {
-           loadDatatable(data.msg)
+          toastr["success"](data.msg);  
+          loadDatatable(data.msg)
         })
         .fail(function(data) {
-          alert(data.fail);
+          toastr["error"](data.msg);
         })
       }
 
@@ -166,6 +197,7 @@ $('.js-basic-example').on('click', '.btn-danger', function(event) {
 function loadDatatable(msg) {
       var table = $('#example1').DataTable();
       table.draw();
+      $('#btnSubmit').prop("disabled", false)
       $("#formModal").modal('hide');
       $("#editformModal").modal('hide');
       clearModal();
@@ -179,26 +211,34 @@ $(document).on('click','.btn-info',function(){
         }) 
     });
 
+//Edit/update
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {
       event.preventDefault();
-        var formData = {
-         id : $('#editformModal input[name=id]').val(),
-         name : $('#editformModal input[name=name]').val(),
-         email : $('#editformModal input[name=email]').val(),
-         nic_no : $('#editformModal input[name=nic_no]').val(),
-         contact_no : $('#editformModal input[name=contact_no]').val(),
-         password : $('#editformModal input[name=password]').val(),
-         // password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
-         // role : ('select[name="role[]"]').val(),
-        }
+        // var formData = {
+        //  id : $('#editformModal input[name=id]').val(),
+        //  name : $('#editformModal input[name=name]').val(),
+        //  email : $('#editformModal input[name=email]').val(),
+        //  nic_no : $('#editformModal input[name=nic_no]').val(),
+        //  contact_no : $('#editformModal input[name=contact_no]').val(),
+        //  password : $('#editformModal input[name=password]').val(),
+        //  password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
+        //  // role : ('select[name="role[]"]').val(),
+        // }
         $.ajax({
            type:'PUT',
            url:"user/"+id,
-           data:formData,
-           success:function(data){
+           data: $('#formUpdate').serialize(),
+           })
+           .done(function(data) {
+              toastr["success"](data.msg);
               loadDatatable(data.msg)
-           }
-        });
+            })
+            .fail(function(data) {
+                            // toastr["error"](data.msg);
+            if(data.status == 422){
+            errorHandler(data.responseJSON)
+          }
+        })
   });
 
 
@@ -206,7 +246,6 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
       update = 0
       $('#btnSubmit').prop("disabled", false)
       $('#formCreate').find('input').val('')
-      $('#formCreate').find('input[name="_token"]').val(token)
       $('#formCreate').find('textarea[type="text"]').val('')
       $('#formCreate').find('input[type="checkbox"]').attr({'checked': false})
       $('#formCreate').find('select').selectpicker('val', 0);
@@ -216,6 +255,7 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
     $('.close').click(function(event){
         clearModal();
     });
+
 
 </script>
 

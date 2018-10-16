@@ -20,6 +20,8 @@
         apply the skin class to the body tag so the changes take effect. -->
         <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
 
+        <link href="{{asset('adminlte/dist/css/toastr/toastr.css')}}" rel="stylesheet"/>
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -56,13 +58,53 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
   <!-- AdminLTE App -->
   <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
 
+  {{-- <script src="{{ asset('adminlte/plugins/bootstrap-notify/bootstrap-notify.min.js') }}" charset="utf-8"></script> --}}
+  {{-- <script src="{{ asset('adminlte/plugins/bootstrap-notify/bootstrap-notify.js') }}" charset="utf-8"></script> --}}
+
+  <script src="{{ asset('adminlte/plugins/toastr/toastr.min.js') }}"></script>
+
   <script>
     $.ajaxSetup({
            headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
            }
        });
+//     $.notify({
+//   title: "<b>Title</b>",
+//   message: "Message Here"
+// });
+
+
+
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-bottom-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+
   </script>
+
+
+<script>
+    function errorHandler(errors){
+      $.each(errors, function(index, message) {
+      toastr["error"](message);
+      });
+    }
+</script>
 
  @yield('script')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
