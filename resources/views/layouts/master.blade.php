@@ -69,12 +69,6 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
            }
        });
-//     $.notify({
-//   title: "<b>Title</b>",
-//   message: "Message Here"
-// });
-
-
 
 
 toastr.options = {
@@ -95,7 +89,13 @@ toastr.options = {
   "hideMethod": "fadeOut"
 }
 
+$(window).on("load", function() {
+            $('.page-loading').hide();
+            $('.page-content').fadeIn();
+        });
+
   </script>
+
 
 
 <script>

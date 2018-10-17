@@ -1,6 +1,19 @@
 @extends('layouts.master')
 @section('style')
 <link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
+<style type="text/css">
+.page-loading{
+    background-image: url('adminlte/dist/img/ring-spinner.gif');
+    height: 100%; 
+    width: 100%; 
+    background-repeat: no-repeat; 
+    background-position: center; 
+    background-color: white; 
+    position: absolute; 
+    top:0;
+    animation: spin 2s infinite linear;
+}
+</style>
 @endsection
 @section('content')
 <!-- Content Header (Page header) -->
@@ -11,22 +24,23 @@
     <span class="pull-right">
       <button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
     </span></h2>
-    <small>All the users in the system</small>
+    {{-- <small>All the users in the system</small> --}}
   </div>
 </section>
+  <div class="page-loading"></div>
 <div class="row">
 </div>
 <!-- Main content -->
-<section class="content">
+<section class="content page-content" style="display: none;">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Data Table With Full Features</h3>
+          <h3 class="box-title">All the users in the system</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="example1" class="table table-bordered table-striped js-basic-example">
+          <table id="example1" class="table table-bordered table-striped js-basic-example" style="width: 100%">
             <thead>
               <tr>
                 <th>ID</th>
@@ -39,7 +53,7 @@
               </tr>
             </thead>
             <tbody>
-
+                  
             </tbody>
           </table>
         </div>
@@ -51,7 +65,9 @@
   </div>
   <!-- /.row -->
 </section>
+
 <!-- /.content -->
+
 @include('user.modal')
 @include('user.editmodal')
 <section class="content container-fluid">
@@ -91,16 +107,14 @@
         // {data: "active" ,orderable: false, searchable: false},
     ],
     }
-$(function () {
-  datatabel = $('#example1').DataTable(opt);
-});
 
+    $(function () {
+      datatabel = $('#example1').DataTable(opt);
+    });
 </script>
 
 
 <script type="text/javascript">
-
-
   function setModal(data) {
 
           $('#editformModal input[name="id"]').val(data.id);
@@ -168,7 +182,6 @@ $(function () {
         })
   });
 
-
     //Delete
 $('.js-basic-example').on('click', '.btn-danger', function(event) {
   event.preventDefault();
@@ -210,6 +223,7 @@ $(document).on('click','.btn-info',function(){
           setModal(data);
         }) 
     });
+
 
 //Edit/update
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {
