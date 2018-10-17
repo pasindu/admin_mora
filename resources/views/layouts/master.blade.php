@@ -15,13 +15,13 @@
   <link rel="stylesheet" href="{{asset('adminlte/bower_components/Ionicons/css/ionicons.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('adminlte/dist/css/AdminLTE.min.css')}}">
+  <link rel="stylesheet" href="{{asset('adminlte/dist/css/bootstrap-switch.css')}}">
+  <link href="https://fonts.googleapis.com/css?family=K2D" rel="stylesheet">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
         <link rel="stylesheet" href="{{asset('adminlte/dist/css/skins/skin-blue.min.css')}}">
-
         <link href="{{asset('adminlte/dist/css/toastr/toastr.css')}}" rel="stylesheet"/>
-
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -52,11 +52,12 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
   <!-- REQUIRED JS SCRIPTS -->
 
   <!-- jQuery 3 -->
-  <script src="{{asset('adminlte/bower_components/jquery/dist/jquery.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <!-- Bootstrap 3.3.7 -->
-  <script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('adminlte/bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
   <!-- AdminLTE App -->
-  <script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('adminlte/dist/js/adminlte.min.js')}}"></script>
+<script src="{{asset('adminlte/dist/js/bootstrap-switch.js')}}"></script>
 
   {{-- <script src="{{ asset('adminlte/plugins/bootstrap-notify/bootstrap-notify.min.js') }}" charset="utf-8"></script> --}}
   {{-- <script src="{{ asset('adminlte/plugins/bootstrap-notify/bootstrap-notify.js') }}" charset="utf-8"></script> --}}
@@ -71,32 +72,30 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
        });
 
 
-toastr.options = {
-  "closeButton": true,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": true,
-  "positionClass": "toast-bottom-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
+    toastr.options = {
+      "closeButton": true,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-bottom-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
 
-$(window).on("load", function() {
-            $('.page-loading').hide();
-            $('.page-content').fadeIn();
-        });
+    $(window).on("load", function() {
+                $('.page-loading').hide();
+                $('.page-content').fadeIn();
+            });
 
   </script>
-
-
 
 <script>
     function errorHandler(errors){
@@ -107,6 +106,7 @@ $(window).on("load", function() {
 </script>
 
  @yield('script')
+
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->

@@ -49,6 +49,7 @@
                 <th>NIC</th>
                 <th>CONTACT NO</th>
                 <th>CREATED_AT</th>
+{{--                 <th>ACTIVE</th> --}}
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -79,7 +80,8 @@
 <!-- DataTables -->
 <script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<!-- <script src="{{asset('adminlte/build/js/crud-2.0.js')}}"></script> -->
+<script src="{{ asset('adminlte/dist/js/user-active.js')}}"></script>
+
 
 <script type="text/javascript">
     // var ajaxURL = base_url+"/user" 
@@ -103,6 +105,7 @@
         {data: 'contact_no' , name: 'contact_no'},
         {data: 'created_at' , name: 'created_at'},
         // {data: 'updated_at' , name: 'updated_at'},
+        // {data: "active",orderable: false, searchable: false},
         {data: "action",orderable: false, searchable: false},
         // {data: "active" ,orderable: false, searchable: false},
     ],
@@ -270,6 +273,9 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
         clearModal();
     });
 
+
+
+// $("[name='my-checkbox']").bootstrapSwitch();
 
 </script>
 

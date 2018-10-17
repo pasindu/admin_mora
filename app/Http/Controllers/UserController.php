@@ -35,12 +35,10 @@ class UserController extends Controller
     public function create(Request $request)
     {
         // dd($request->all());
-
         $validator = $this->validateData($request->all());
           if ($validator->fails()){
           return Response::json($validator->errors(), 422);
           }
-
 
         $user = User::create([
 
@@ -64,6 +62,23 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+    }
+
+     public function active(Request $request)
+    {
+      // dd('sdsd');   
+        $this->validate($request, ['user_id' => 'required|exists:users,id']);
+        $user = User::findOrFail($request->user_id);
+
+        if($request->active == 0){
+        $user->active = 0;
+         $user->save();
+        }else{
+        $user->active = 1;
+        $user->save();
+        }
+
+        return response()->json(['msg' => 'action successfully'], 200);
     }
 
     /**
@@ -115,7 +130,7 @@ class UserController extends Controller
                 'email' => $request->email,
                 'nic' => $request->nic_no,
                 'contact_no' => $request->contact_no,
-        ]);
+          ]);
         $user->save();
         return response()->json(['msg' => 'User updated successfully'], 200);
     }
@@ -141,7 +156,7 @@ class UserController extends Controller
                 $check = $row->active ? 'checked':'';
                 return '<div class="switch">
                             <label>
-                                <input value="'.$row->id.'" type="checkbox" '.$check.'>
+                                <input value="'.$row->id.'" name="my-checkbox" type="checkbox" '.$check.'>
                                 <span class="lever switch-col-green"></span>
                             </label>
                         </div>';
@@ -190,27 +205,23 @@ class UserController extends Controller
             'contact_no'=>'required|regex:/^(0)[0-9]{9}$/',
             'email' => 'required|email|unique:users,email,'.$id,
             'password' => 'required|string|min:6|confirmed',
-            // 'password_confirmation' => 'required|min:6|',
-            // 'admin_password' => 'required|admin_password',
-            // 'role' => 'required|array',
-            // 'role.*' => 'required|exists:roles,id',
         ];
 
 
     $msg = [
      
-      'name.required' => 'User\'s name is required',
-      'name.max' => 'User\'s name exceeded character limit',
-      'nic_no.required' => 'NIC Number is required',
-      'contact_no.required' => 'Mobile Number is required',
-      'contact_no.numeric' => 'Invalid Mobile Number',
-      'email.required' => 'Email is required',
-      'email.email' => 'Email is not valid',
-      'email.unique' => 'Email is already in use',
-      'password.required' => 'Password is required',
-      'password.min' => 'Password should be at least 6 characters',
-      'password.confirmed' => 'Password Confimation did not match',
-      'admin_password.required' => 'Current User Password is required',
+            'name.required' => 'User\'s name is required',
+            'name.max' => 'User\'s name exceeded character limit',
+            'nic_no.required' => 'NIC Number is required',
+            'contact_no.required' => 'Mobile Number is required',
+            'contact_no.numeric' => 'Invalid Mobile Number',
+            'email.required' => 'Email is required',
+            'email.email' => 'Email is not valid',
+            'email.unique' => 'Email is already in use',
+            'password.required' => 'Password is required',
+            'password.min' => 'Password should be at least 6 characters',
+            'password.confirmed' => 'Password Confimation did not match',
+            'admin_password.required' => 'Current User Password is required',
     ];
 
     return Validator::make($data,$rules,$msg);
@@ -219,7 +230,6 @@ class UserController extends Controller
     public function checkCurrentUserPwd($password)
       {
         $admin =  Auth::user();
-        
         if(Hash::check($password, $admin->password))
         {
           return true;

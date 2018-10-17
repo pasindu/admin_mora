@@ -7,7 +7,7 @@
                 <h4 class="modal-title">ADMIN/USER REGISTRATION</h4>
               </div>
               <div class="modal-body">
-                <div class="box box-warning">
+                <div class="box box-primary">
 
             <!-- /.box-header -->
             <div class="box-body">
