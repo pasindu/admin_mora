@@ -20,9 +20,9 @@
 <section class="content-header">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!-- Content Wrapper. Contains page content -->
-    <h2><img src="{{asset('adminlte/dist/img/user12.png')}}" width="25" height="25" alt=""> USER MANAGEMENT
+    <h2><img src="{{asset('adminlte/dist/img/company.png')}}" width="25" height="25" alt=""> LEASE COMPANY
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW COMPANY</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>
@@ -36,7 +36,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">All the users in the system</h3>
+          <h3 class="box-title">All the lease companies in the system</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -44,12 +44,11 @@
             <thead>
               <tr>
                 <th>ID</th>
-                <th>NAME</th>
+                <th>COMPNAY NAME</th>
+                <th>BRANCH MANAGER</th>
                 <th>EMAIL</th>
-                <th>NIC</th>
                 <th>CONTACT NO</th>
                 <th>CREATED_AT</th>
-{{--                 <th>ACTIVE</th> --}}
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -69,8 +68,8 @@
 
 <!-- /.content -->
 
-@include('user.modal')
-@include('user.editmodal')
+@include('lease_company.modal')
+{{-- @include('user.editmodal') --}}
 <section class="content container-fluid">
   
 </section>
@@ -80,7 +79,7 @@
 <!-- DataTables -->
 <script src="{{asset('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
-<script src="{{ asset('adminlte/dist/js/user-active.js')}}"></script>
+
 
 
 <script type="text/javascript">
@@ -90,7 +89,7 @@
         processing: true,
         serverSide: true,
         ajax:{
-        url:'{{ url('user-all') }}',
+        url:'{{ url('company-all') }}',
         type:'POST',
         dataType: 'JSON',
         beforeSend: function (xhr) {
@@ -99,7 +98,7 @@
     },
     columns:[
         {data: 'id' , name: 'id',"visible": false,orderable: true},
-        {data: 'name' , name: 'name'},
+        {data: 'companyname' , name: 'companyname'},
         {data: 'email' , name: 'email',orderable: false, searchable: false},
         {data: 'nic' , name: 'nic'},
         {data: 'contact_no' , name: 'contact_no'},
@@ -121,13 +120,10 @@
   function setModal(data) {
 
           $('#editformModal input[name="id"]').val(data.id);
-          $('#editformModal input[name="name"]').val(data.name);
-          $('#editformModal input[name="email"]').val(data.email);
-          $('#editformModal input[name="nic_no"]').val(data.nic);
+          $('#editformModal input[name="c_name"]').val(data.name);
+          $('#editformModal input[name="c_manager"]').val(data.c_manager);
+          $('#editformModal input[name="c_email"]').val(data.c_email);
           $('#editformModal input[name="contact_no"]').val(data.contact_no);
-          $('#editformModal input[name="password"]').val(data.password);
-          $('#editformModal input[name="password_confirmation"]').val(data.password_confirmation);
-          $('#editformModal input[name="admin_password"]').val(data.admin_password);
           $("#editformModal").modal('show');
     }
 </script>
@@ -136,42 +132,9 @@
 
   $(".btn-submit").click(function(event){
         event.preventDefault();
-        var formData = {
-
-         name : $('#formModal input[name=name]').val(),
-         email : $('#formModal input[name=email]').val(),
-         nic_no : $('#formModal input[name=nic_no]').val(),
-         contact_no : $('#formModal input[name=contact_no]').val(),
-         password : $('#formModal input[name=password]').val(),
-         // password_confirm : $('#formModal input[name=password_confirmation]').val(),
-         // role : ('select[name="role[]"]').val(),
-        }
-
-      //         $.ajax({
-      //           method:'POST',
-      //           url:"user/create",
-      //           data:formData,
-      //           beforeSend: function () {
-                 
-      //           },
-      //           complete: function () {
-                  
-      //           },
-      //           success: function (data) {
-      //     // successHandler(); // This need to be handled externally
-      //   },
-      //   error: function(data){
-
-      //        console.log(data);
-      //     if(data.status == 422){
-      //       errorHandler(data.responseJSON)
-      //     }
-      //   }
-      // });
-
         $.ajax({
            type:'POST',
-           url:"user/create",
+           url:"lease_company/create",
            data:$('#formCreate').serialize(),
          })
         .done(function(data) {
@@ -231,16 +194,6 @@ $(document).on('click','.btn-info',function(){
 //Edit/update
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {
       event.preventDefault();
-        // var formData = {
-        //  id : $('#editformModal input[name=id]').val(),
-        //  name : $('#editformModal input[name=name]').val(),
-        //  email : $('#editformModal input[name=email]').val(),
-        //  nic_no : $('#editformModal input[name=nic_no]').val(),
-        //  contact_no : $('#editformModal input[name=contact_no]').val(),
-        //  password : $('#editformModal input[name=password]').val(),
-        //  password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
-        //  // role : ('select[name="role[]"]').val(),
-        // }
         $.ajax({
            type:'PUT',
            url:"user/"+id,

@@ -20,9 +20,9 @@
 <section class="content-header">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!-- Content Wrapper. Contains page content -->
-    <h2><img src="{{asset('adminlte/dist/img/user12.png')}}" width="25" height="25" alt=""> USER MANAGEMENT
+    <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> LEASE MANAGEMENT
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW OFFICER</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>
@@ -36,7 +36,7 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">All the users in the system</h3>
+          <h3 class="box-title">All the lease officers in the system</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -47,8 +47,11 @@
                 <th>NAME</th>
                 <th>EMAIL</th>
                 <th>NIC</th>
+                <th>COMPANY NAME</th>
+                <th>BRANCH LOCATION</th>
+                <th>POST</th>
                 <th>CONTACT NO</th>
-                <th>CREATED_AT</th>
+                {{-- <th>CREATED_AT</th> --}}
 {{--                 <th>ACTIVE</th> --}}
                 <th>ACTION</th>
               </tr>
@@ -69,8 +72,8 @@
 
 <!-- /.content -->
 
-@include('user.modal')
-@include('user.editmodal')
+@include('lease_officer.modal')
+{{-- @include('user.editmodal') --}}
 <section class="content container-fluid">
   
 </section>
@@ -102,6 +105,9 @@
         {data: 'name' , name: 'name'},
         {data: 'email' , name: 'email',orderable: false, searchable: false},
         {data: 'nic' , name: 'nic'},
+        {data: 'companyname' , name: 'companyname'},
+        {data: 'branchlocation' , name: 'branchlocation'},
+        {data: 'post' , name: 'post'},
         {data: 'contact_no' , name: 'contact_no'},
         {data: 'created_at' , name: 'created_at'},
         // {data: 'updated_at' , name: 'updated_at'},
@@ -137,7 +143,7 @@
   $(".btn-submit").click(function(event){
         event.preventDefault();
         var formData = {
-
+         role : $('#formModal select[name=role]').val(),
          name : $('#formModal input[name=name]').val(),
          email : $('#formModal input[name=email]').val(),
          nic_no : $('#formModal input[name=nic_no]').val(),
@@ -147,27 +153,6 @@
          // role : ('select[name="role[]"]').val(),
         }
 
-      //         $.ajax({
-      //           method:'POST',
-      //           url:"user/create",
-      //           data:formData,
-      //           beforeSend: function () {
-                 
-      //           },
-      //           complete: function () {
-                  
-      //           },
-      //           success: function (data) {
-      //     // successHandler(); // This need to be handled externally
-      //   },
-      //   error: function(data){
-
-      //        console.log(data);
-      //     if(data.status == 422){
-      //       errorHandler(data.responseJSON)
-      //     }
-      //   }
-      // });
 
         $.ajax({
            type:'POST',
