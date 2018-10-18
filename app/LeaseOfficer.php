@@ -16,4 +16,8 @@ class LeaseOfficer extends Model
         return $this->belongsTo(District::class,'district_id');
     }
 
+    public function LeaseOfficers()
+    {
+        return $this->belongsTo(LeaseCompany::class,'lease_company_id');
+    }
 }

@@ -45,7 +45,6 @@
               <tr>
                 <th>ID</th>
                 <th>COMPNAY NAME</th>
-                <th>BRANCH MANAGER</th>
                 <th>EMAIL</th>
                 <th>CONTACT NO</th>
                 <th>CREATED_AT</th>
@@ -69,7 +68,7 @@
 <!-- /.content -->
 
 @include('lease_company.modal')
-{{-- @include('user.editmodal') --}}
+@include('lease_company.editmodal')
 <section class="content container-fluid">
   
 </section>
@@ -98,14 +97,14 @@
     },
     columns:[
         {data: 'id' , name: 'id',"visible": false,orderable: true},
-        {data: 'companyname' , name: 'companyname'},
-        {data: 'email' , name: 'email',orderable: false, searchable: false},
-        {data: 'nic' , name: 'nic'},
+        {data: 'company_name' , name: 'company_name'},
+        {data: 'email' , name: 'email'},
         {data: 'contact_no' , name: 'contact_no'},
         {data: 'created_at' , name: 'created_at'},
+        {data: "action",orderable: false, searchable: false},
+        // {data: 'manager_name' , name: 'manager_name',orderable: false, searchable: false},
         // {data: 'updated_at' , name: 'updated_at'},
         // {data: "active",orderable: false, searchable: false},
-        {data: "action",orderable: false, searchable: false},
         // {data: "active" ,orderable: false, searchable: false},
     ],
     }
@@ -120,9 +119,9 @@
   function setModal(data) {
 
           $('#editformModal input[name="id"]').val(data.id);
-          $('#editformModal input[name="c_name"]').val(data.name);
-          $('#editformModal input[name="c_manager"]').val(data.c_manager);
-          $('#editformModal input[name="c_email"]').val(data.c_email);
+          $('#editformModal input[name="c_name"]').val(data.company_name);
+          $('#editformModal input[name="c_manager"]').val(data.manager_name);
+          $('#editformModal input[name="c_email"]').val(data.email);
           $('#editformModal input[name="contact_no"]').val(data.contact_no);
           $("#editformModal").modal('show');
     }
@@ -155,7 +154,7 @@ $('.js-basic-example').on('click', '.btn-danger', function(event) {
   if (confirm("Confirm delete?")) {
 
       id = $(this).data('id')
-      url = "user/"+id
+      url = "lease_company/"+id
       $.ajax({
         url: url,
         type: "DELETE",
@@ -184,7 +183,7 @@ function loadDatatable(msg) {
 
 $(document).on('click','.btn-info',function(){
         id = $(this).data('id')
-        $.get("user/"+id+"/edit", function (data) {
+        $.get("lease_company/"+id+"/edit", function (data) {
           //success data
           setModal(data);
         }) 
@@ -196,7 +195,7 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
       event.preventDefault();
         $.ajax({
            type:'PUT',
-           url:"user/"+id,
+           url:"lease_company/"+id,
            data: $('#formUpdate').serialize(),
            })
            .done(function(data) {

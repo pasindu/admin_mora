@@ -43,16 +43,16 @@
           <table id="example1" class="table table-bordered table-striped js-basic-example" style="width: 100%">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>EMAIL</th>
-                <th>NIC</th>
+                <!-- <th>ID</th> -->
                 <th>COMPANY NAME</th>
                 <th>BRANCH LOCATION</th>
+                <th>NAME</th>
                 <th>POST</th>
+                <th>NIC</th>
+                <th>EMAIL</th>
                 <th>CONTACT NO</th>
-                {{-- <th>CREATED_AT</th> --}}
-{{--                 <th>ACTIVE</th> --}}
+<!--                <th>CREATED_AT</th> 
+               <th>ACTIVE</th>  -->
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -93,7 +93,7 @@
         processing: true,
         serverSide: true,
         ajax:{
-        url:'{{ url('user-all') }}',
+        url:'{{ url('lease_officer-all') }}',
         type:'POST',
         dataType: 'JSON',
         beforeSend: function (xhr) {
@@ -101,7 +101,7 @@
     }
     },
     columns:[
-        {data: 'id' , name: 'id',"visible": false,orderable: true},
+        // {data: 'id' , name: 'id',"visible": false,orderable: true},
         {data: 'name' , name: 'name'},
         {data: 'email' , name: 'email',orderable: false, searchable: false},
         {data: 'nic' , name: 'nic'},
@@ -110,9 +110,9 @@
         {data: 'post' , name: 'post'},
         {data: 'contact_no' , name: 'contact_no'},
         {data: 'created_at' , name: 'created_at'},
+        {data: "action",orderable: false, searchable: false},
         // {data: 'updated_at' , name: 'updated_at'},
         // {data: "active",orderable: false, searchable: false},
-        {data: "action",orderable: false, searchable: false},
         // {data: "active" ,orderable: false, searchable: false},
     ],
     }
@@ -156,7 +156,7 @@
 
         $.ajax({
            type:'POST',
-           url:"user/create",
+           url:"lease_officer/create",
            data:$('#formCreate').serialize(),
          })
         .done(function(data) {

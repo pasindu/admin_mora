@@ -18,9 +18,11 @@
 
                 <div class="form-group">
                   <label>Company</label>
-                    <select name=c_distric" class="form-control show-tick">
+                    <select name=c_name" class="form-control show-tick">
                       <option value="" class="form-label">Select Company</option>
-
+                        @foreach($leaseofficer as $element)
+                          <option value="{{$element->id}}">{{$element->company_name}}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -46,13 +48,13 @@
                  <div class="form-group">
                   <label>Officer Name</label>
                   <div class="form-line">
-                  <input type="text" class="form-control" placeholder="" name="nic_no"></div>
+                  <input type="text" class="form-control" placeholder="" name="name"></div>
                 </div>
 
                 <div class="form-group">
                   <label>Post</label>
                    <div class="form-line">
-                  <input type="text" class="form-control" placeholder="" name="nic_no"></div>
+                  <input type="text" class="form-control" placeholder="" name="post"></div>
                 </div>
 
                 <div class="form-group">
@@ -71,7 +73,7 @@
                    <div class="form-line">
                   <input type="text" class="form-control" placeholder="" name="email"></div>
                 </div>
-                  <div class="form-group">
+<!--                   <div class="form-group">
                   <label>Password</label>
                 <div class="form-line">
                   <input type="password"  class="form-control" placeholder="" name="password"></div>
@@ -80,7 +82,7 @@
                   <label>Confirm Password</label>
                 <div class="form-line">
                   <input type="password"  class="form-control" placeholder="" name="password_confirmation"></div>
-                </div>
+                </div> -->
 
           {!! Form::close()!!}
    <!--            </form> -->

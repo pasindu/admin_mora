@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 use Datatables;
 use Response;
 use Validator;
-use Hash;
+use Hash; 
 class UserController extends Controller
 {
     /**
@@ -62,6 +62,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+
     }
 
      public function active(Request $request)
@@ -79,7 +80,7 @@ class UserController extends Controller
         }
 
         return response()->json(['msg' => 'action successfully'], 200);
-    }
+      }
 
     /**
      * Display the specified resource.
@@ -114,7 +115,7 @@ class UserController extends Controller
     public function update(Request $request,User $user)
     {
 
-      // dd($request->all());
+      dd($request->all());
         $validator = $this->validateData($request->all(),$request->id);
             if ($validator->fails()) {
               return Response::json($validator->errors(), 422);

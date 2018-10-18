@@ -30,10 +30,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 	//Leasr Officer
 	Route::get('lease_officer/', 'LeaseOfficerController@index')->name('lease_officer');
-
+	Route::post('lease_officer-all', 'LeaseOfficerController@getAll');
+	Route::post('lease_officer/create', 'LeaseOfficerController@create');
 
 	//Leasr Company
 	Route::get('lease_company/', 'LeaseCompanyController@index')->name('lease_company');
-	Route::post('lease_company/create', 'LeaseCompanyController@create');
 	Route::post('company-all', 'LeaseCompanyController@getAll');
+	Route::delete('lease_company/{id}', 'LeaseCompanyController@destroy');
+	Route::put('lease_company/{id}', 'LeaseCompanyController@update')->name('lease_company');
+	Route::get('lease_company/{id}/edit', 'LeaseCompanyController@edit')->name('lease_company');
+	Route::post('lease_company/create', 'LeaseCompanyController@create');
 });

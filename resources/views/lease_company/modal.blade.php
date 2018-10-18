@@ -23,11 +23,11 @@
                 </div>
 
 
-                <div class="form-group">
+<!--                 <div class="form-group">
                   <label>Branch Manager</label>
                   <div class="form-line">
                   <input type="text" class="form-control" placeholder="" name="c_manager"></div>
-                </div>
+                </div> -->
  
                 <div class="form-group">
                   <label>Email</label>
