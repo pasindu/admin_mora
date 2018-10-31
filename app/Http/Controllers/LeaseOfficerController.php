@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\LeaseOfficer;
 use App\District;
@@ -32,18 +33,19 @@ class LeaseOfficerController extends Controller
     {
         // dd($request->all());
 
-          // $validator = $this->validateData($request->all());
-          // if ($validator->fails()){
-          // return Response::json($validator->errors(), 422);
-          // }
+          $validator = $this->validateData($request->all());
+          if ($validator->fails()){
+          return Response::json($validator->errors(), 422);
+          }
 
         $leasecompany = LeaseOfficer::create([
 
                 'company_id' => $request->c_name,
                 'district_id' => $request->c_distric,
-                'city_id' => $request->city_id,
+                'city_id' => $request->c_city,
                 'officer_name' => $request->name,
-                'nic' => $request->nic,
+                'nic' => $request->nic_no,
+                'post' => $request->post,
                 'email' => $request->email,
                 'contact_no' => $request->contact_no,
                 // 'password' => Hash::make($request->password),
@@ -53,12 +55,77 @@ class LeaseOfficerController extends Controller
 
     }
 
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request,LeaseCompany $leasecompany)
+    {
+
+      dd($request->all());
+        // $validator = $this->validateData($request->all(),$request->id);
+        //     if ($validator->fails()) {
+        //       return Response::json($validator->errors(), 422);
+        //     }
+
+        $leaseofficer = LeaseOfficer::find($request->id);
+        $leaseofficer->update([
+                
+                'company_id' => $request->c_name,
+                'district_id' => $request->c_distric,
+                'city_id' => $request->c_city,
+                'officer_name' => $request->name,
+                'nic' => $request->nic_no,
+                'post' => $request->post,
+                'email' => $request->email,
+                'contact_no' => $request->contact_no,
+          ]);
+        $leaseofficer->save();
+        return response()->json(['msg' => 'Lease Officer updated successfully'], 200);
+    }
+
+
+        public function edit($id)
+    {
+        // $districts = District::where('id',$id)->first();
+        // $city = City::where('id',$id)->first();
+        // $leaseofficer = LeaseCompany::where('id',$id)->first();
+        $leaseofficer = LeaseOfficer::whereStatus(1)->where('id',$id)->first();
+        // dd($easeofficer);
+        return $leaseofficer;
+    }
+
+    public function destroy($id)
+    {
+        // dd($id);
+        try {
+          $leaseofficer = LeaseOfficer::find($id);
+          $leaseofficer->status = 0;
+          $leaseofficer->save();
+
+          return Response::json(['msg'=>'Lease Officer deleted successfully'], 200);
+
+        } catch (\PDOException $e) {
+              return Response::json(['error'=>"lease officer has dependencies; can not delete"], 401);
+
+        }catch (\Exception $e) {
+              return Response::json(['error'=>"Internal Error"], 401);
+
+        }
+    }
+
 
 
     public function getAll(){
 
-        $leaseofficer = LeaseOfficer::whereStatus(1)->get();
-        dd($leasecompany);
+        $leaseofficer = LeaseOfficer::with('city','districts')->whereStatus(1)
+
+        ->get();
+        // dd($leaseofficer);
+        // dd($leaseofficer);
         return Datatables::of($leaseofficer)
 
         ->addColumn(
@@ -71,20 +138,12 @@ class LeaseOfficerController extends Controller
                 </button>';
             })
 
-        ->editColumn(
-            'active', function ($row){
-                $check = $row->active ? 'checked':'';
-                return '<div class="switch">
-                            <label>
-                                <input value="'.$row->id.'" name="my-checkbox" type="checkbox" '.$check.'>
-                                <span class="lever switch-col-green"></span>
-                            </label>
-                        </div>';
-            })
 
-        ->rawColumns(['active','action'])
+        ->rawColumns(['action'])
         ->make(true);
     }
+
+
 
 
     public function validateData($data, $id = 0)
@@ -97,7 +156,7 @@ class LeaseOfficerController extends Controller
             'c_city' => 'required|max:255',
             'name' => 'required|max:255',
             'post' => 'required|max:255',
-            'nic_no' => 'required|max:255',
+            'nic_no' => 'required|regex:/^[0-9]{9}[V,v,X,x]$/',
             'contact_no' => 'required|regex:/^(0)[0-9]{9}$/',
             'email' => 'required|email|unique:users,email,'.$id,
 
@@ -107,8 +166,12 @@ class LeaseOfficerController extends Controller
 
     $msg = [
      
-            'c_name.required' => 'Company\'s name is required',
-            'c_name.max' => 'Company\'s name exceeded character limit',
+            'c_name.required' => 'Company name is required',
+            'c_name.max' => 'Company name exceeded character limit',
+            'c_distric.required' => 'Company District is required',
+            'c_city.required' => 'Company City is required',
+            'name.required' => 'Officer Name is required',
+            'post.required' => 'Officer Post is required',
             'nic_no.required' => 'NIC Number is required',
             'contact_no.required' => 'Mobile Number is required',
             'contact_no.numeric' => 'Invalid Mobile Number',

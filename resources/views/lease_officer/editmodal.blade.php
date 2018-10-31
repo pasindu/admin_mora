@@ -1,10 +1,10 @@
-        <div class="modal fade" id="formModal">
+        <div class="modal fade" id="editformModal">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">LEASE OFFICER REGISTRATION</h4>
+                <h4 class="modal-title">EDIT LEASE OFFICER REGISTRATION</h4>
               </div>
               <div class="modal-body">
                 <div class="box box-primary">
@@ -13,11 +13,11 @@
             <div class="box-body">
  <!--              <form role="form"> -->
                 <!-- text input -->
-          {!! Form::open(['id' => 'formCreate'])!!}
+          {!! Form::open(['id' => 'formUpdate'])!!}
           {{ csrf_field()}}
 
 
-                 <!-- <div class="form-group">
+                <!--  <div class="form-group">
                  <label>Company Name</label>
                   <div class="form-line">
                     <select name="c_name" class="form-control show-tick">
@@ -53,13 +53,13 @@
                 <div class="form-group">
                   <label>Officer Name</label>
                   <div class="form-line">
-                  <input type="text" class="form-control" placeholder="" name="name"></div>
+                  <input type="text" class="form-control" placeholder="" name="officer_name"></div>
                 </div>
 
                 <div class="form-group">
                   <label>Post</label>
                    <div class="form-line">
-                  <input type="text" class="form-control" placeholder="" name="post"></div>
+                  <input type="text" class="form-control" placeholder="" name="officer_post"></div>
                 </div>
 
                 <div class="form-group">
@@ -95,7 +95,10 @@
             <!-- /.box-body -->
           </div>
               </div>
-
+               <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn btn-primary" id="editbtnSubmit">Submit</button>
+              </div>
             </div>
             <!-- /.modal-content -->
           </div>

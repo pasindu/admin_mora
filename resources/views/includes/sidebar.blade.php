@@ -29,6 +29,7 @@
         <li class="active"><a href="{{ url('user')  }}"><i class="fa fa-users"></i> <span>Users</span></a></li>
         <li class="active"><a href="{{ url('lease_company')  }}"><i class="fa  fa-building"></i> <span>Company</span></a></li>
         <li class="active"><a href="{{ url('lease_officer')  }}"><i class="fa fa-user"></i> <span>Officer</span></a></li>
+        <li class="active"><a href="{{ url('user_request')  }}"><i class="fa fa-user"></i> <span>User Request</span></a></li>
 {{--         <li class="treeview">
           <a href="#"><i class="fa fa-link"></i> <span>Company</span>
             <span class="pull-right-container">

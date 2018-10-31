@@ -1,4 +1,4 @@
-  @extends('layouts.master')
+@extends('layouts.master')
 @section('style')
 <link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 <style type="text/css">
@@ -20,37 +20,32 @@
 <section class="content-header">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!-- Content Wrapper. Contains page content -->
-    <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> LEASE OFFICER MANAGEMENT
+     <h2><img src="{{asset('adminlte/dist/img/user_request.png')}}" width="35" height="35" alt=""> USER REQUEST MANAGEMENT(LEASE)
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW OFFICER</button>
+      <a  class="btn btn-block btn-primary" data-backdrop="static" href="{{url() }}">ADD NEW REQUEST</a>
     </span></h2>
-    {{-- <small>All the users in the system</small> --}}
+    {{url()->current()}}
+    {{-- <small>All the users request in the system</small> --}}
   </div>
 </section>
   <div class="page-loading"></div>
 <div class="row">
 </div>
 <!-- Main content -->
-
-</section>
 <section class="content page-content" style="display: none;">
   <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="box">
         <div class="box-header">
           <h3 class="box-title">All the lease companies in the system</h3>
-        </div
+        </div>
         <!-- /.box-header -->
         <div class="box-body">
-          <table id="dt_basic" class="table table-bordered table-striped js-basic-example" style="width: 100%">
+          <table id="example1" class="table table-bordered table-striped js-basic-example" style="width: 100%">
             <thead>
               <tr>
-                <!-- <th>ID</th> -->
-                <th>COMPANY NAME</th>
-                <th>BRANCH DISTRICT</th>
-                <th>BRANCH LOCATION</th>
-                <th>NAME</th>
-                <th>POST</th>
+                <th>ID</th>
+                <th>USER NAME</th>
                 <th>NIC</th>
                 <th>EMAIL</th>
                 <th>CONTACT NO</th>
@@ -73,9 +68,7 @@
 
 <!-- /.content -->
 
-@include('lease_officer.modal')
-@include('lease_officer.editmodal')
-  
+
 <section class="content container-fluid">
   
 </section>
@@ -87,6 +80,7 @@
 <script src="{{asset('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 
 
+
 <script type="text/javascript">
     // var ajaxURL = base_url+"/user" 
     var SSPEnable = true
@@ -94,7 +88,7 @@
         processing: true,
         serverSide: true,
         ajax:{
-        url:'{{ url('officer-all') }}',
+        url:'{{ url('user-request-all') }}',
         type:'POST',
         dataType: 'JSON',
         beforeSend: function (xhr) {
@@ -102,58 +96,45 @@
     }
     },
     columns:[
-        // {data: 'id' , name: 'id',"visible": false,orderable: true},
-        {data: 'company_id' , name: 'company_id'},
-        {data: 'districts.dname' , name: 'districts.dname',orderable: false, searchable: false},
-        {data: 'city.cname' , name: 'city.cname'},
-        {data: 'officer_name' , name: 'officer_name'},
-        {data: 'designation' , name: 'designation'},
-        {data: 'nic' , name: 'nic'},
+        {data: 'id' , name: 'id',"visible": false,orderable: true},
+        {data: 'company_name' , name: 'company_name'},
         {data: 'email' , name: 'email'},
         {data: 'contact_no' , name: 'contact_no'},
+        {data: 'created_at' , name: 'created_at'},
         {data: "action",orderable: false, searchable: false},
-        // {data: 'created_at' , name: 'created_at'},
-
+        // {data: 'manager_name' , name: 'manager_name',orderable: false, searchable: false},
+        // {data: 'updated_at' , name: 'updated_at'},
+        // {data: "active",orderable: false, searchable: false},
+        // {data: "active" ,orderable: false, searchable: false},
     ],
     }
 
-    
+    $(function () {
+      datatabel = $('#example1').DataTable(opt);
+      // alert(1);
+    });
 </script>
 
 
 <script type="text/javascript">
   function setModal(data) {
 
-          // $('#editformModal input[name="c_name"]').val(data.company_id);
-          // $('#editformModal input[name="c_distric"]').val(data.district_id);
-          // $('#editformModal input[name="c_city"]').val(data.city_id);
-          $('#editformModal input[name="officer_name"]').val(data.officer_name);
-          $('#editformModal input[name="officer_post"]').val(data.officer_post);
-          $('#editformModal input[name="nic_no"]').val(data.nic);
-          $('#editformModal input[name="officer_post"]').val(data.designation);
-          $('#editformModal input[name="email"]').val(data.email);
+          $('#editformModal input[name="id"]').val(data.id);
+          $('#editformModal input[name="c_name"]').val(data.company_name);
+          $('#editformModal input[name="c_manager"]').val(data.manager_name);
+          $('#editformModal input[name="c_email"]').val(data.email);
           $('#editformModal input[name="contact_no"]').val(data.contact_no);
-          // $('#editformModal input[name="nic_no"]').val(data.nic);
-          // $('#editformModal input[name="password"]').val(data.password);
-          // $('#editformModal input[name="password_confirmation"]').val(data.password_confirmation);
-          // $('#editformModal input[name="admin_password"]').val(data.admin_password);
           $("#editformModal").modal('show');
     }
-
-    $(function () {
-      datatabel = $('#dt_basic').DataTable(opt);
-          // alert(1);
-    });
 </script>
 
 <script type="text/javascript">
 
   $(".btn-submit").click(function(event){
         event.preventDefault();
-
         $.ajax({
            type:'POST',
-           url:"lease_officer/create",
+           url:"user_request/create",
            data:$('#formCreate').serialize(),
          })
         .done(function(data) {
@@ -174,7 +155,7 @@ $('.js-basic-example').on('click', '.btn-danger', function(event) {
   if (confirm("Confirm delete?")) {
 
       id = $(this).data('id')
-      url = "lease_officer/"+id
+      url = "user_request/"+id
       $.ajax({
         url: url,
         type: "DELETE",
@@ -193,7 +174,7 @@ $('.js-basic-example').on('click', '.btn-danger', function(event) {
   });
 
 function loadDatatable(msg) {
-      var table = $('#dt_basic').DataTable();
+      var table = $('#example1').DataTable();
       table.draw();
       $('#btnSubmit').prop("disabled", false)
       $("#formModal").modal('hide');
@@ -203,12 +184,8 @@ function loadDatatable(msg) {
 
 $(document).on('click','.btn-info',function(){
         id = $(this).data('id')
-  // alert(id);
-        
-        $.get("lease_officer/"+id+"/edit", function (data) {
+        $.get("user_request/"+id+"/edit", function (data) {
           //success data
-          console.log(data);
-          
           setModal(data);
         }) 
     });
@@ -216,21 +193,10 @@ $(document).on('click','.btn-info',function(){
 
 //Edit/update
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {
-  // alert(1);
       event.preventDefault();
-        // var formData = {
-        //  id : $('#editformModal input[name=id]').val(),
-        //  name : $('#editformModal input[name=name]').val(),
-        //  email : $('#editformModal input[name=email]').val(),
-        //  nic_no : $('#editformModal input[name=nic_no]').val(),
-        //  contact_no : $('#editformModal input[name=contact_no]').val(),
-        //  password : $('#editformModal input[name=password]').val(),
-        //  password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
-        //  // role : ('select[name="role[]"]').val(),
-        // }
         $.ajax({
            type:'PUT',
-           url:"lease_officer/"+id,
+           url:"user_request/"+id,
            data: $('#formUpdate').serialize(),
            })
            .done(function(data) {

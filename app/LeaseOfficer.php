@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class LeaseOfficer extends Model
 {
+     protected $table = 'lease_officers';
+     
+			protected $fillable = [
+
+        'company_id', 'district_id', 'city_id' ,'officer_name' ,'nic' ,'designation' ,'email' ,'contact_no' ,
+    ];
+
+    
     public function city()
     {
         return $this->belongsTo(City::class,'city_id');
@@ -16,8 +24,4 @@ class LeaseOfficer extends Model
         return $this->belongsTo(District::class,'district_id');
     }
 
-    public function LeaseOfficers()
-    {
-        return $this->belongsTo(LeaseCompany::class,'lease_company_id');
-    }
 }

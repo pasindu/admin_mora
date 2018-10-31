@@ -111,6 +111,7 @@
 
     $(function () {
       datatabel = $('#example1').DataTable(opt);
+      // alert(1);
     });
 </script>
 
