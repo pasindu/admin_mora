@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class LeaseCompany extends Model
 {
 
+    protected $table = 'lease_companies';
+
 		protected $fillable = [
 
         'company_name','email' ,'contact_no' ,
@@ -21,5 +23,12 @@ class LeaseCompany extends Model
     {
         return $this->belongsTo(City::class,'city_id');
     }
+
+
+    // public function leasecompanies(){
+
+    //     return $this->hasMany(LeaseCompany::class);
+    // }
+
 
 }

@@ -24,9 +24,11 @@ class LeaseOfficerController extends Controller
     {
     	$districts = District::get();
         $city = City::get();
-    	$leaseofficer = LeaseCompany::get();
-        // dd($leaseofficer);
-        return view('lease_officer.index',compact('districts','city','leaseofficer'));
+        $leasecompany = LeaseCompany::whereStatus(1)->get();
+    	$leaseofficer = LeaseOfficer::whereStatus(1)->get();
+
+        // dd($leasecompany);
+        return view('lease_officer.index',compact('districts','city','leasecompany','leaseofficer'));
     }
 
     public function create(Request $request)
@@ -43,9 +45,9 @@ class LeaseOfficerController extends Controller
                 'company_id' => $request->c_name,
                 'district_id' => $request->c_distric,
                 'city_id' => $request->c_city,
-                'officer_name' => $request->name,
+                'officer_name' => $request->officer_name,
                 'nic' => $request->nic_no,
-                'post' => $request->post,
+                'designation' => $request->officer_post,
                 'email' => $request->email,
                 'contact_no' => $request->contact_no,
                 // 'password' => Hash::make($request->password),
@@ -65,11 +67,11 @@ class LeaseOfficerController extends Controller
     public function update(Request $request,LeaseCompany $leasecompany)
     {
 
-      dd($request->all());
-        // $validator = $this->validateData($request->all(),$request->id);
-        //     if ($validator->fails()) {
-        //       return Response::json($validator->errors(), 422);
-        //     }
+      // dd($request->all());
+        $validator = $this->validateData($request->all(),$request->id);
+            if ($validator->fails()) {
+              return Response::json($validator->errors(), 422);
+            }
 
         $leaseofficer = LeaseOfficer::find($request->id);
         $leaseofficer->update([
@@ -77,9 +79,9 @@ class LeaseOfficerController extends Controller
                 'company_id' => $request->c_name,
                 'district_id' => $request->c_distric,
                 'city_id' => $request->c_city,
-                'officer_name' => $request->name,
+                'officer_name' => $request->officer_name,
                 'nic' => $request->nic_no,
-                'post' => $request->post,
+                'designation' => $request->officer_post,
                 'email' => $request->email,
                 'contact_no' => $request->contact_no,
           ]);
@@ -90,12 +92,12 @@ class LeaseOfficerController extends Controller
 
         public function edit($id)
     {
-        // $districts = District::where('id',$id)->first();
-        // $city = City::where('id',$id)->first();
-        // $leaseofficer = LeaseCompany::where('id',$id)->first();
+        $leasecompany = LeaseCompany::whereStatus(1)->get();
+        $districts = District::get();
+        $city = City::get();
         $leaseofficer = LeaseOfficer::whereStatus(1)->where('id',$id)->first();
-        // dd($easeofficer);
-        return $leaseofficer;
+        // return $leaseofficer;
+        return view('lease_officer.editmodal',compact('city','districts','leasecompany','leaseofficer'));
     }
 
     public function destroy($id)
@@ -121,7 +123,7 @@ class LeaseOfficerController extends Controller
 
     public function getAll(){
 
-        $leaseofficer = LeaseOfficer::with('city','districts')->whereStatus(1)
+        $leaseofficer = LeaseOfficer::with('city','districts','leasecompanies')->whereStatus(1)
 
         ->get();
         // dd($leaseofficer);
@@ -149,23 +151,18 @@ class LeaseOfficerController extends Controller
     public function validateData($data, $id = 0)
     {
     $rules = [
-        
-
             'c_name' => 'required|max:255',
             'c_distric' => 'required|max:255',
             'c_city' => 'required|max:255',
-            'name' => 'required|max:255',
-            'post' => 'required|max:255',
+            'officer_name' => 'required|max:255',
+            'officer_post' => 'required|max:255',
             'nic_no' => 'required|regex:/^[0-9]{9}[V,v,X,x]$/',
             'contact_no' => 'required|regex:/^(0)[0-9]{9}$/',
             'email' => 'required|email|unique:users,email,'.$id,
-
-
         ];
 
 
     $msg = [
-     
             'c_name.required' => 'Company name is required',
             'c_name.max' => 'Company name exceeded character limit',
             'c_distric.required' => 'Company District is required',

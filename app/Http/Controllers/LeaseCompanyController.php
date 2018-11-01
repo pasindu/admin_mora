@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\District;
 use App\City;
 use App\LeaseCompany;
+use App\LeaseOfficer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Datatables;
@@ -25,7 +26,7 @@ class LeaseCompanyController extends Controller
     	$districts = District::get();
     	$city = City::get();
     	// dd($city);
-        return view('lease_company.index',compact('districts','city'));
+        return view('lease_company.index',compact('districts','city','leasecompany'));
     }
 
         /**
@@ -45,9 +46,9 @@ class LeaseCompanyController extends Controller
         $leasecompany = LeaseCompany::create([
 
                 'company_name' => $request->c_name,
-                // 'manager_name' => $request->c_manager,
                 'email' => $request->c_email,
                 'contact_no' => $request->contact_no,
+                // 'manager_name' => $request->c_manager,
                 // 'password' => Hash::make($request->password),
                                 
         ]);
@@ -57,8 +58,13 @@ class LeaseCompanyController extends Controller
 
         public function edit($id)
     {
+
         $leasecompany = LeaseCompany::whereStatus(1)->where('id',$id)->first();
         return $leasecompany;
+        // $leasecompany = LeaseCompany::where('id',$id)->first();
+        // $districts = District::get();
+        // $city = City::get();
+        // return view('lease_officer.editmodal',compact('city','districts','leasecompany'));
     }
 
 
@@ -81,9 +87,9 @@ class LeaseCompanyController extends Controller
         $leasecompany = LeaseCompany::find($request->id);
         $leasecompany->update([
                 'company_name' => $request->c_name,
-                // 'manager_name' => $request->c_manager,
                 'email' => $request->c_email,
                 'contact_no' => $request->contact_no,
+                // 'manager_name' => $request->c_manager,
           ]);
         $leasecompany->save();
         return response()->json(['msg' => 'Company updated successfully'], 200);

@@ -1,4 +1,4 @@
-  @extends('layouts.master')
+@extends('layouts.master')
 @section('style')
 <link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 <style type="text/css">
@@ -20,9 +20,8 @@
 <section class="content-header">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <!-- Content Wrapper. Contains page content -->
-    <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> USER REQUEST MANAGEMENT(LEASE)
+    <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> ADD USER REQUEST (LEASE)
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW OFFICER</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>
@@ -33,43 +32,33 @@
 <!-- Main content -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content"> 
+         <div class="box box-warning">
+            <div class="box-header with-border">
 
-      <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <form role="form">
+                <!-- text input -->
+                <div class="form-group">
+                  <label>Name</label>
+                   <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="name">
+                </div>
+              </div>
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
+
+              </form>
+            </div>
+            <!-- /.box-body -->
           </div>
-        </div>
-        <div class="box-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
-        <!-- /.box-footer-->
-      </div>
-      <!-- /.box -->
+      
 
     </section>
 
 <!-- /.content -->
 
-  
-    <!-- Main content -->
-    <section class="content">
-
-
-    </section>
-<!-- /.content -->
 @endsection
 @section('script')
 <!-- DataTables -->

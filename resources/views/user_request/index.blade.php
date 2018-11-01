@@ -22,9 +22,10 @@
     <!-- Content Wrapper. Contains page content -->
      <h2><img src="{{asset('adminlte/dist/img/user_request.png')}}" width="35" height="35" alt=""> USER REQUEST MANAGEMENT(LEASE)
     <span class="pull-right">
-      <a  class="btn btn-block btn-primary" data-backdrop="static" href="{{url() }}">ADD NEW REQUEST</a>
+      {{-- <a  class="btn btn-block btn-primary" data-backdrop="static" id="addUserRequest" >ADD NEW REQUEST</a> --}}
+      <a class="btn btn-block btn-primary" href="{{url('user_request/create')}}">ADD NEW REQUEST</a>
     </span></h2>
-    {{url()->current()}}
+
     {{-- <small>All the users request in the system</small> --}}
   </div>
 </section>
@@ -37,18 +38,21 @@
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">All the lease companies in the system</h3>
+          <h3 class="box-title">All the user request in the system</h3>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <table id="example1" class="table table-bordered table-striped js-basic-example" style="width: 100%">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>USER NAME</th>
+                <th>NAME</th>
                 <th>NIC</th>
+                <th>LOCATION</th>
                 <th>EMAIL</th>
                 <th>CONTACT NO</th>
+                <th>MONTHLY INCOME</th>
+                <th>AMOUNT</th>
+                <th>MONTHLY</th>
                 <th>ACTION</th>
               </tr>
             </thead>
@@ -190,6 +194,12 @@ $(document).on('click','.btn-info',function(){
         }) 
     });
 
+$(document).on('click','#addUserRequest',function(){
+        // id = $(this).data('id')
+
+       $("#editformModal").modal('show');
+
+    });
 
 //Edit/update
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {

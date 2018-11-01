@@ -16,4 +16,11 @@ class UserRequestController extends Controller
         return view('user_request.index');
     
     }
+
+    public function create(Request $request)
+    {
+    	// dd($request->all());
+        return view('user_request.create');
+    
+    }
 }

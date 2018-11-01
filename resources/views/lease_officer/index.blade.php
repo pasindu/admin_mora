@@ -1,4 +1,4 @@
-  @extends('layouts.master')
+@extends('layouts.master')
 @section('style')
 <link rel="stylesheet" href="{{asset('adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}">
 <style type="text/css">
@@ -22,7 +22,7 @@
     <!-- Content Wrapper. Contains page content -->
     <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> LEASE OFFICER MANAGEMENT
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW OFFICER</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal" id="addOfficer">ADD NEW OFFICER</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>
@@ -74,7 +74,8 @@
 <!-- /.content -->
 
 @include('lease_officer.modal')
-@include('lease_officer.editmodal')
+@include('lease_officer.create')
+
   
 <section class="content container-fluid">
   
@@ -103,7 +104,7 @@
     },
     columns:[
         // {data: 'id' , name: 'id',"visible": false,orderable: true},
-        {data: 'company_id' , name: 'company_id'},
+        {data: 'leasecompanies.company_name' , name: 'leasecompanies.company_name'},
         {data: 'districts.dname' , name: 'districts.dname',orderable: false, searchable: false},
         {data: 'city.cname' , name: 'city.cname'},
         {data: 'officer_name' , name: 'officer_name'},
@@ -122,23 +123,6 @@
 
 
 <script type="text/javascript">
-  function setModal(data) {
-
-          // $('#editformModal input[name="c_name"]').val(data.company_id);
-          // $('#editformModal input[name="c_distric"]').val(data.district_id);
-          // $('#editformModal input[name="c_city"]').val(data.city_id);
-          $('#editformModal input[name="officer_name"]').val(data.officer_name);
-          $('#editformModal input[name="officer_post"]').val(data.officer_post);
-          $('#editformModal input[name="nic_no"]').val(data.nic);
-          $('#editformModal input[name="officer_post"]').val(data.designation);
-          $('#editformModal input[name="email"]').val(data.email);
-          $('#editformModal input[name="contact_no"]').val(data.contact_no);
-          // $('#editformModal input[name="nic_no"]').val(data.nic);
-          // $('#editformModal input[name="password"]').val(data.password);
-          // $('#editformModal input[name="password_confirmation"]').val(data.password_confirmation);
-          // $('#editformModal input[name="admin_password"]').val(data.admin_password);
-          $("#editformModal").modal('show');
-    }
 
     $(function () {
       datatabel = $('#dt_basic').DataTable(opt);
@@ -208,9 +192,19 @@ $(document).on('click','.btn-info',function(){
         $.get("lease_officer/"+id+"/edit", function (data) {
           //success data
           console.log(data);
-          
-          setModal(data);
+          $('#leaseOfficerEditContent').html(data);
+          $("#editformModal").modal('show');
+
         }) 
+    });
+
+
+$(document).on('click','#addOfficer',function(){
+        // id = $(this).data('id')
+        $("#formModal").modal('show');
+  // alert(1);
+        
+
     });
 
 
@@ -218,16 +212,7 @@ $(document).on('click','.btn-info',function(){
 $('#editformModal').on('click', '#editbtnSubmit', function(event) {
   // alert(1);
       event.preventDefault();
-        // var formData = {
-        //  id : $('#editformModal input[name=id]').val(),
-        //  name : $('#editformModal input[name=name]').val(),
-        //  email : $('#editformModal input[name=email]').val(),
-        //  nic_no : $('#editformModal input[name=nic_no]').val(),
-        //  contact_no : $('#editformModal input[name=contact_no]').val(),
-        //  password : $('#editformModal input[name=password]').val(),
-        //  password_confirmation : $('#editformModal input[name=password_confirmation]').val(),
-        //  // role : ('select[name="role[]"]').val(),
-        // }
+
         $.ajax({
            type:'PUT',
            url:"lease_officer/"+id,
@@ -238,7 +223,7 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
               loadDatatable(data.msg)
             })
             .fail(function(data) {
-                            // toastr["error"](data.msg);
+            // toastr["error"](data.msg);
             if(data.status == 422){
             errorHandler(data.responseJSON)
           }
@@ -260,9 +245,6 @@ $('#editformModal').on('click', '#editbtnSubmit', function(event) {
         clearModal();
     });
 
-
-
-// $("[name='my-checkbox']").bootstrapSwitch();
 
 </script>
 
