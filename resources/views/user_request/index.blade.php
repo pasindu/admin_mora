@@ -23,7 +23,7 @@
      <h2><img src="{{asset('adminlte/dist/img/user_request.png')}}" width="35" height="35" alt=""> USER REQUEST MANAGEMENT(LEASE)
     <span class="pull-right">
       {{-- <a  class="btn btn-block btn-primary" data-backdrop="static" id="addUserRequest" >ADD NEW REQUEST</a> --}}
-      <a class="btn btn-block btn-primary" href="{{url('user_request/create')}}">ADD NEW REQUEST</a>
+      <a class="btn btn-block btn-primary" href="{{url('user_request/create')}}"><i class="fa fa-fw fa-plus"></i> NEW REQUEST</a>
     </span></h2>
 
     {{-- <small>All the users request in the system</small> --}}

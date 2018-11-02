@@ -22,7 +22,7 @@
     <!-- Content Wrapper. Contains page content -->
     <h2><img src="{{asset('adminlte/dist/img/user12.png')}}" width="25" height="25" alt=""> USER MANAGEMENT
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW USER</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal"><i class="fa fa-fw fa-user-plus"></i> NEW USER</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>

@@ -22,7 +22,7 @@
     <!-- Content Wrapper. Contains page content -->
     <h2><img src="{{asset('adminlte/dist/img/lease.png')}}" width="25" height="25" alt=""> LEASE OFFICER MANAGEMENT
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal" id="addOfficer">ADD NEW OFFICER</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal" id="addOfficer"><i class="fa fa-fw fa-plus"></i> NEW OFFICER</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>

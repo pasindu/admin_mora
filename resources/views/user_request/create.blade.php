@@ -33,27 +33,122 @@
 
     <!-- Main content -->
     <section class="content"> 
-         <div class="box box-warning">
-            <div class="box-header with-border">
-
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <form role="form">
-                <!-- text input -->
+          <div class="box box-default">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
                 <div class="form-group">
-                  <label>Name</label>
-                   <div class="form-line">
+                <label>Name</label>
+                <div class="form-line">
                   <input type="text" class="form-control" placeholder="" name="name">
                 </div>
               </div>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                  <div class="form-group">
+                  <label>NIC</label>
+                  <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="nic">
+                </div>
+              </div>
+              </div>
 
+                <div class="form-group">
+                  <div class="form-group">
+                  <label>Location</label>
+                  <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="location">
+                </div>
+              </div>
+              </div>
 
-              </form>
+                <div class="form-group">
+                  <div class="form-group">
+                  <label>Contact No</label>
+                  <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="contactno">
+                </div>
+              </div>
+              </div>
+
+                <div class="form-group">
+                  <div class="form-group">
+                  <label>Email</label>
+                  <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="email">
+                </div>
+              </div>
+              </div>
+              <!-- /.form-group -->
             </div>
-            <!-- /.box-body -->
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <div class="form-group">
+                <label>BR No</label>
+                <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="brno">
+                </div>
+              </div>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <div class="form-group">
+                <label>Businuess Name</label>
+                <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="businessname">
+                </div>
+              </div>
+              </div>
+
+               <div class="form-group">
+                <div class="form-group">
+                <label>Monthly Income</label>
+                <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="income">
+                </div>
+              </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-group">
+                <label>Vehical Type</label>
+                <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="vehicalType">
+                </div>
+              </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-group">
+                <label>Vehical No</label>
+                <div class="form-line">
+                  <input type="text" class="form-control" placeholder="" name="vehicalNo">
+                </div>
+              </div>
+              </div>
+
+               <div class="form-group">
+                <div class="form-group">
+                <label>Vehical Photo</label>
+                <div class="form-line">
+                  <input type="file" class="form-control" placeholder="" name="vehicalPhoto">
+                </div>
+              </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+                <div class="modal-footer">
+                <!-- <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button> -->
+                <button type="button" class="btn-submit btn btn-primary btn-lg" id="btnSubmit">Submit</button>
+              </div>
+            <!-- /.col -->
           </div>
-      
+          <!-- /.row -->
+        </div>
+      </div>
 
     </section>
 

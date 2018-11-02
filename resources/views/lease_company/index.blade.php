@@ -22,7 +22,7 @@
     <!-- Content Wrapper. Contains page content -->
     <h2><img src="{{asset('adminlte/dist/img/company.png')}}" width="25" height="25" alt=""> LEASE COMPANY
     <span class="pull-right">
-      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal">ADD NEW COMPANY</button>
+      <button type="button" class="btn btn-block btn-primary" data-backdrop="static" data-toggle="modal" data-target="#formModal"><i class="fa fa-fw fa-plus"></i> NEW COMPANY</button>
     </span></h2>
     {{-- <small>All the users in the system</small> --}}
   </div>
