@@ -28,8 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('user/create', 'UserController@create');
 	Route::post('user-active', 'UserController@active');
 
-
-
 	//Leasr Company
 	Route::get('lease_company/', 'LeaseCompanyController@index')->name('lease_company');
 	Route::post('company-all', 'LeaseCompanyController@getAll');
